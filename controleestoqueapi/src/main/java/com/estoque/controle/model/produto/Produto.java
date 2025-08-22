@@ -1,4 +1,4 @@
-package com.estoque.controle.model;
+package com.estoque.controle.model.produto;
 
 import jakarta.persistence.*;
 

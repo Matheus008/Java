@@ -1,10 +1,9 @@
 package com.estoque.controle.controller;
 
-import com.estoque.controle.model.Produto;
+import com.estoque.controle.model.produto.Produto;
 import com.estoque.controle.repository.ProdutoRepository;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sound.sampled.Port;
 import java.util.List;
 
 @RestController
@@ -32,7 +31,6 @@ public class ProdutoController {
         } else {
             produtoRepository.deleteById(id);
         }
-
     }
 
     @PutMapping("{id}")
