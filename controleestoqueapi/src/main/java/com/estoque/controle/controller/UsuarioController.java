@@ -17,12 +17,6 @@ public class UsuarioController {
         this.usuarioRepository = usuarioRepository;
     }
 
-    @PostMapping
-    public Usuario salvar(@RequestBody Usuario usuario) {
-        usuarioRepository.save(usuario);
-        return usuario;
-    }
-
     @DeleteMapping("{id}")
     public void deletarUsuario(@PathVariable("id") int id) {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));

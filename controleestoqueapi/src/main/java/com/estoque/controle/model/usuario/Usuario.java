@@ -46,11 +46,17 @@ public class Usuario implements UserDetails {
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.nivelDeUsuario == NivelDeUsuario.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
+        if (this.nivelDeUsuario == NivelDeUsuario.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
                 new SimpleGrantedAuthority("ROLE_GERENTE"),
-                new SimpleGrantedAuthority("ROLE_USUARIO"));
-        else if (this.nivelDeUsuario == NivelDeUsuario.GERENTE) return List.of(new SimpleGrantedAuthority("ROLE_GERENTE"),
-                new SimpleGrantedAuthority("ROLE_USUARIO"));
+                new SimpleGrantedAuthority("ROLE_USUARIO"),
+                new SimpleGrantedAuthority("ROLE_ESTOQUE"));
+        else if (this.nivelDeUsuario == NivelDeUsuario.GERENTE)
+            return List.of(new SimpleGrantedAuthority("ROLE_GERENTE"),
+                    new SimpleGrantedAuthority("ROLE_USUARIO"),
+                    new SimpleGrantedAuthority(("ROLE_ESTOQUE")));
+        else if (this.nivelDeUsuario == NivelDeUsuario.ESTOQUE)
+            return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"),
+                    new SimpleGrantedAuthority("ROLE_ESTOQUE"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
     }
 

@@ -39,22 +39,6 @@ public class ProdutoController {
         produtoRepository.save(produto);
     }
 
-    @PutMapping("{id}/adicionar/{quantidade}")
-    public void adicionar(@PathVariable int id, @PathVariable int quantidade) {
-        Produto produto = produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encotrado"));
-        produto.adicionarQuantidadeProduto(quantidade);
-        produto.calculaValorTotal();
-        produtoRepository.save(produto);
-    }
-
-    @PutMapping("{id}/remover/{quantidade}")
-    public void remover(@PathVariable int id, @PathVariable int quantidade) {
-        Produto produto = produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encotrado"));
-        produto.retirarQuantidadeProduto(quantidade);
-        produto.calculaValorTotal();
-        produtoRepository.save(produto);
-    }
-
     @GetMapping
     public List<Produto> buscar(@RequestParam(value = "nome", required = false) String nome) {
         if (nome != null) {
@@ -64,7 +48,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public Produto obterPorId(@PathVariable("id") int id) {
+    public Produto buscarPorId(@PathVariable("id") int id) {
         return produtoRepository.findById(id).orElse(null);
     }
 }

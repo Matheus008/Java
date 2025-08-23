@@ -26,25 +26,6 @@ public class Produto {
     @Column(name = "quantidade")
     private int quantidade = 0;
 
-    public void adicionarQuantidadeProduto(int quantidade) {
-        this.quantidade += quantidade;
-    }
-
-    public void retirarQuantidadeProduto(int quantidade) {
-
-        if (quantidade > 0 && quantidade <= this.quantidade) {
-            this.quantidade -= quantidade;
-        } else {
-            throw new IllegalArgumentException("Quantidade inválida");
-        }
-
-    }
-
-    public void calculaValorTotal() {
-
-        this.valorTotal = this.quantidade * this.preco;
-    }
-
     public int getId() {
         return id;
     }
@@ -83,5 +64,13 @@ public class Produto {
 
     public int getQuantidade() {
         return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 }

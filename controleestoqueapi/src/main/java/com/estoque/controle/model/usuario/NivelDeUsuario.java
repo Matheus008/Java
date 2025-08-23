@@ -3,7 +3,8 @@ package com.estoque.controle.model.usuario;
 public enum NivelDeUsuario {
     ADMIN("admin"),
     GERENTE("gerente"),
-    USUARIO("usuario");
+    USUARIO("usuario"),
+    ESTOQUE("estoque");
 
     private String role;
 

@@ -32,10 +32,13 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/produtos").hasAnyRole("ADMIN", "GERENTE")
                         .requestMatchers(HttpMethod.DELETE, "/produtos").hasAnyRole("ADMIN", "GERENTE")
-                        .requestMatchers(HttpMethod.POST, "/usuarios").hasAnyRole("ADMIN", "GERENTE")
+                        .requestMatchers(HttpMethod.PUT, "/produtos").hasAnyRole("ADMIN", "GERENTE")
                         .requestMatchers(HttpMethod.DELETE, "/usuarios").hasAnyRole("ADMIN", "GERENTE")
+                        .requestMatchers(HttpMethod.PUT, "/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/movimentacao").hasAnyRole("ADMIN", "GERENTE", "ESTOQUE")
+                        .requestMatchers(HttpMethod.GET, "/movimentacao").hasAnyRole("ADMIN", "GERENTE", "ESTOQUE")
                         .anyRequest().authenticated()
-                        )
+                )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -43,7 +46,7 @@ public class SecurityConfiguration {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return  authenticationConfiguration.getAuthenticationManager();
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
