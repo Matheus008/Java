@@ -23,6 +23,7 @@ public class SecurityConfiguration {
     @Autowired
     SecurityFilter securityFilter;
 
+    //Filtro de rotas
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(crsf -> crsf.disable())
@@ -44,11 +45,13 @@ public class SecurityConfiguration {
         return http.build();
     }
 
+    //Guardar a configuração de autenticação da aplicação
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    //Criptografar a senha
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

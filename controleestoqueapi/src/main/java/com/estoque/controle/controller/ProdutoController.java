@@ -2,12 +2,17 @@ package com.estoque.controle.controller;
 
 import com.estoque.controle.model.produto.Produto;
 import com.estoque.controle.repository.ProdutoRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("produtos")
+@Tag(name = "Produto", description = "Gerenciamento dos produtos")
 public class ProdutoController {
 
     private ProdutoRepository produtoRepository;
@@ -16,12 +21,22 @@ public class ProdutoController {
         this.produtoRepository = produtoRepository;
     }
 
+    @Operation(summary = "Salvar produto", description = "Cadastrar produto no banco de dados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Produto cadastrado com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
+    })
     @PostMapping
     public Produto salvar(@RequestBody Produto produto) {
         produtoRepository.save(produto);
         return produto;
     }
 
+    @Operation(summary = "Deletar produto", description = "Deletar produto do banco de dados.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Produto deletado com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
+    })
     @DeleteMapping("{id}")
     public void deletar(@PathVariable("id") int id) {
         Produto produto = produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
@@ -33,12 +48,22 @@ public class ProdutoController {
         }
     }
 
+    @Operation(summary = "Atualizar produto", description = "Atualizar o produto no bando de dados.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Produto alterado com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
+    })
     @PutMapping("{id}")
     public void atualizar(@PathVariable("id") int id, @RequestBody Produto produto) {
         produto.setId(id);
         produtoRepository.save(produto);
     }
 
+    @Operation(summary = "Buscar produtos", description = "Buscar todos os produtos do banco de dados.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca de produto realizada com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
+    })
     @GetMapping
     public List<Produto> buscar(@RequestParam(value = "nome", required = false) String nome) {
         if (nome != null) {
@@ -47,6 +72,11 @@ public class ProdutoController {
         return produtoRepository.findAll();
     }
 
+    @Operation(summary = "Buscar produto por Id", description = "Buscar produto por Id no banco de dados.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca de produto por Id realizada com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
+    })
     @GetMapping("/{id}")
     public Produto buscarPorId(@PathVariable("id") int id) {
         return produtoRepository.findById(id).orElse(null);
