@@ -35,9 +35,9 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.DELETE, "/produtos").hasAnyRole("ADMIN", "GERENTE")
                         .requestMatchers(HttpMethod.PUT, "/produtos").hasAnyRole("ADMIN", "GERENTE")
                         .requestMatchers(HttpMethod.DELETE, "/usuarios").hasAnyRole("ADMIN", "GERENTE")
-                        .requestMatchers(HttpMethod.PUT, "/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/movimentacao").hasAnyRole("ADMIN", "GERENTE", "ESTOQUE")
                         .requestMatchers(HttpMethod.GET, "/movimentacao").hasAnyRole("ADMIN", "GERENTE", "ESTOQUE")
+                        .requestMatchers("/v3/api-docs/**","/swagger-ui/**","/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
