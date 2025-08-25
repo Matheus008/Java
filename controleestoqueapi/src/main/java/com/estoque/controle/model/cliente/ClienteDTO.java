@@ -4,6 +4,7 @@ public record ClienteDTO(String nomeCliente, String cpfOuCnpj, TipoCliente tipoC
 
     public static ClienteDTO of(String nomeCliente, String cpfOuCnpj, TipoCliente tipoCliente) {
         if (cpfOuCnpj != null) {
+            cpfOuCnpj = cpfOuCnpj.replaceAll("\\D", ""); // para ficar somente números
             if (cpfOuCnpj.length() == 11 && tipoCliente == TipoCliente.FISICA) {
                 cpfOuCnpj = cpfOuCnpj.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})",
                         "$1.$2.$3-$4");
