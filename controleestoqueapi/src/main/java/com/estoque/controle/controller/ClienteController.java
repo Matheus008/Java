@@ -68,10 +68,16 @@ public class ClienteController {
     public Cliente atualizar(@PathVariable("id") int id,@RequestBody ClienteDTO clienteDTO) {
         Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
+        ClienteDTO dtoFormatado = ClienteDTO.of(
+                clienteDTO.nomeCliente(),
+                clienteDTO.cpfOuCnpj(),
+                clienteDTO.tipoCliente()
+        );
+
         cliente.setId(id);
-        cliente.setNomeCliente(clienteDTO.nomeCliente());
-        cliente.setTipoCliente(clienteDTO.tipoCliente());
-        cliente.setCpfOuCnpj(clienteDTO.cpfOuCnpj());
+        cliente.setNomeCliente(dtoFormatado.nomeCliente());
+        cliente.setTipoCliente(dtoFormatado.tipoCliente());
+        cliente.setCpfOuCnpj(dtoFormatado.cpfOuCnpj());
 
         return clienteRepository.save(cliente);
     }

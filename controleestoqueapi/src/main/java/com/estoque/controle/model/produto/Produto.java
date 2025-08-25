@@ -26,6 +26,10 @@ public class Produto {
     @Column(name = "quantidade")
     private int quantidade = 0;
 
+    /*@JoinColumn(name = "fornecedor_id")
+    @ManyToOne
+    private Fornecedor fornecedor;*/
+
     public int getId() {
         return id;
     }
