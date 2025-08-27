@@ -18,7 +18,7 @@ public class Fornecedor {
     private String cpfOuCnpj;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipoCliente")
+    @Column(name = "tipo_fornecedor")
     private TipoFornecedor tipoFornecedor;
 
     public int getId() {

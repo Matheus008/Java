@@ -20,9 +20,9 @@ import java.util.List;
 @Tag(name = "Movimentar estoque", description = "Gerenciamento das movimentações de produtos dentro de estoque.")
 public class MovimentacaoController {
 
-    private UsuarioRepository usuarioRepository;
-    private MovimentacaoService movimentacaoService;
-    private MovimentacaoRepository movimentacaoRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final MovimentacaoService movimentacaoService;
+    private final MovimentacaoRepository movimentacaoRepository;
 
     public MovimentacaoController(UsuarioRepository usuarioRepository, MovimentacaoService movimentacaoService, MovimentacaoRepository movimentacaoRepository) {
         this.movimentacaoService = movimentacaoService;

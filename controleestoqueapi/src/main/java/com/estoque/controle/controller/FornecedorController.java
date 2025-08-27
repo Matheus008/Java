@@ -3,23 +3,33 @@ package com.estoque.controle.controller;
 import com.estoque.controle.model.fornecedor.Fornecedor;
 import com.estoque.controle.model.fornecedor.FornecedorDTO;
 import com.estoque.controle.repository.FornecedorRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/fornecedor")
+@Tag(name = "Fornecedor", description = "Gerenciamento dos fornecedores.")
 public class FornecedorController {
 
-    private FornecedorRepository fornecedorRepository;
+    private final FornecedorRepository fornecedorRepository;
 
     public FornecedorController(FornecedorRepository fornecedorRepository) {
         this.fornecedorRepository = fornecedorRepository;
     }
 
+    @Operation(summary = "Cadastrar fornecedor", description = "cadastrar fornecedor no banco de dados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Fornecedor cadastrado com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
+    })
     @PostMapping
     public Fornecedor cadastrar(@RequestBody FornecedorDTO fornecedorDTO) {
-        FornecedorDTO dtoFormatado = FornecedorDTO.of(fornecedorDTO.nomeFornecedor(),fornecedorDTO.cpfOuCnpj(), fornecedorDTO.tipoFornecedor());
+        FornecedorDTO dtoFormatado = FornecedorDTO.of(fornecedorDTO.nomeFornecedor(), fornecedorDTO.cpfOuCnpj(), fornecedorDTO.tipoFornecedor());
 
         Fornecedor fornecedor = new Fornecedor();
         fornecedor.setNomeCliente(dtoFormatado.nomeFornecedor());
@@ -31,18 +41,28 @@ public class FornecedorController {
         return fornecedor;
     }
 
+    @Operation(summary = "Deletar fornecedor", description = "deletar fornecedor no banco de dados")
+    @ApiResponses(value =  {
+            @ApiResponse(responseCode = "200", description = "Fornecedor deletado com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
+    })
     @DeleteMapping("{id}")
     public void deletar(@PathVariable("id") int id) {
-       Fornecedor fornecedor = fornecedorRepository.findById(id).orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+        Fornecedor fornecedor = fornecedorRepository.findById(id).orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
 
         fornecedorRepository.delete(fornecedor);
     }
 
+    @Operation(summary = "Atualizar fornecedor", description = "atualizar fornecedor no banco de dados")
+    @ApiResponses(value =  {
+            @ApiResponse(responseCode = "200", description = "Fornecedor atualizado com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
+    })
     @PutMapping("{id}")
-    public Fornecedor atualizar(@PathVariable("id") int id,@RequestBody FornecedorDTO fornecedorDTO) {
+    public Fornecedor atualizar(@PathVariable("id") int id, @RequestBody FornecedorDTO fornecedorDTO) {
         Fornecedor fornecedor = fornecedorRepository.findById(id).orElseThrow(() -> new RuntimeException("Fornecedor não encontrado!"));
 
-        FornecedorDTO dtoFormatado = FornecedorDTO.of(fornecedorDTO.nomeFornecedor(),fornecedorDTO.cpfOuCnpj(), fornecedorDTO.tipoFornecedor());
+        FornecedorDTO dtoFormatado = FornecedorDTO.of(fornecedorDTO.nomeFornecedor(), fornecedorDTO.cpfOuCnpj(), fornecedorDTO.tipoFornecedor());
 
         fornecedor.setId(id);
         fornecedor.setNomeCliente(dtoFormatado.nomeFornecedor());
@@ -52,6 +72,11 @@ public class FornecedorController {
         return fornecedorRepository.save(fornecedor);
     }
 
+    @Operation(summary = "Buscar todos os fornecedores", description = "buscar todos os fornecedores no banco de dados")
+    @ApiResponses(value =  {
+            @ApiResponse(responseCode = "200", description = "Fornecedores buscado com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
+    })
     @GetMapping
     public List<Fornecedor> buscarTodos() {
         return fornecedorRepository.findAll();

@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MovimentacaoService {
 
-    private ProdutoRepository produtoRepository;
-    private MovimentacaoRepository movimentacaoRepository;
-    private ProdutoService produtoService;
+    private final ProdutoRepository produtoRepository;
+    private final MovimentacaoRepository movimentacaoRepository;
+    private final ProdutoService produtoService;
 
 
     public MovimentacaoService(ProdutoRepository produtoRepository, MovimentacaoRepository movimentacaoRepository, ProdutoService produtoService) {

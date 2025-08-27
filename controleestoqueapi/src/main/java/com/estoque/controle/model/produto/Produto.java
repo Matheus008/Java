@@ -1,5 +1,6 @@
 package com.estoque.controle.model.produto;
 
+import com.estoque.controle.model.fornecedor.Fornecedor;
 import jakarta.persistence.*;
 
 @Entity
@@ -26,9 +27,9 @@ public class Produto {
     @Column(name = "quantidade")
     private int quantidade = 0;
 
-    /*@JoinColumn(name = "fornecedor_id")
+    @JoinColumn(name = "fornecedor_id")
     @ManyToOne
-    private Fornecedor fornecedor;*/
+    private Fornecedor fornecedor;
 
     public int getId() {
         return id;

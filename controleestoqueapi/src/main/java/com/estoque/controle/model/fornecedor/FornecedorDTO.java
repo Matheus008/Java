@@ -11,6 +11,8 @@ public record FornecedorDTO(String nomeFornecedor, String cpfOuCnpj, TipoFornece
             } else if (cpfOuCnpj.length() == 14 && tipoFornecedor == TipoFornecedor.JURIDICA) {
                 cpfOuCnpj = cpfOuCnpj.replaceAll("(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})",
                         "$1.$2.$3/$4-$5");
+            } else {
+                throw new RuntimeException("Tipo inválido");
             }
         }
         return new FornecedorDTO(nomeFornecedor, cpfOuCnpj, tipoFornecedor);

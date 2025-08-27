@@ -51,7 +51,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
     })
     @GetMapping
-    public List<Usuario> buscar(@PathVariable(value = "nome", required = false) String nome) {
+    public List<Usuario> buscarTodoOuPorNome(@PathVariable(value = "nome", required = false) String nome) {
         if(nome != null) {
             return  usuarioRepository.findByNomeUsuario(nome);
         }

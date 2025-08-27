@@ -31,6 +31,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(autorize -> autorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/fornecedor").hasAnyRole("ADMIN", "GERENTE")
+                        .requestMatchers(HttpMethod.DELETE, "/fornecedor").hasAnyRole("ADMIN", "GERENTE")
+                        .requestMatchers(HttpMethod.PUT, "/fornecedor").hasAnyRole("ADMIN", "GERENTE")
                         .requestMatchers(HttpMethod.POST, "/produtos").hasAnyRole("ADMIN", "GERENTE")
                         .requestMatchers(HttpMethod.DELETE, "/produtos").hasAnyRole("ADMIN", "GERENTE")
                         .requestMatchers(HttpMethod.PUT, "/produtos").hasAnyRole("ADMIN", "GERENTE")
