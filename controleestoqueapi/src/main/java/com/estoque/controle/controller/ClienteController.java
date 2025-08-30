@@ -53,7 +53,7 @@ public class ClienteController {
             @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
     })
     @DeleteMapping("{id}")
-    public void deletar(@PathVariable("id") int id) {
+    public void deletar(@PathVariable("id") Long id) {
         Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
         clienteRepository.delete(cliente);
@@ -65,7 +65,7 @@ public class ClienteController {
             @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
     })
     @PutMapping("{id}")
-    public Cliente atualizar(@PathVariable("id") int id,@RequestBody ClienteDTO clienteDTO) {
+    public Cliente atualizar(@PathVariable("id") Long id,@RequestBody ClienteDTO clienteDTO) {
         Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
         ClienteDTO dtoFormatado = ClienteDTO.of(

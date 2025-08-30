@@ -9,7 +9,7 @@ public class Fornecedor {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "nome_fornecedor")
     private String nomeFornecedor;
@@ -21,11 +21,11 @@ public class Fornecedor {
     @Column(name = "tipo_fornecedor")
     private TipoFornecedor tipoFornecedor;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

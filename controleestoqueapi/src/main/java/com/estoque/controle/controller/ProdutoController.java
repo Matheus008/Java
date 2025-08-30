@@ -1,7 +1,11 @@
 package com.estoque.controle.controller;
 
+import com.estoque.controle.model.fornecedor.Fornecedor;
 import com.estoque.controle.model.produto.Produto;
+import com.estoque.controle.model.produto.ProdutoDTO;
+import com.estoque.controle.repository.FornecedorRepository;
 import com.estoque.controle.repository.ProdutoRepository;
+import com.estoque.controle.services.ProdutoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -16,9 +20,13 @@ import java.util.List;
 public class ProdutoController {
 
     private ProdutoRepository produtoRepository;
+    private ProdutoService produtoService;
+    private FornecedorRepository fornecedorRepository;
 
-    public ProdutoController(ProdutoRepository produtoRepository) {
+    public ProdutoController(ProdutoRepository produtoRepository, ProdutoService produtoService, FornecedorRepository fornecedorRepository) {
         this.produtoRepository = produtoRepository;
+        this.produtoService = produtoService;
+        this.fornecedorRepository = fornecedorRepository;
     }
 
     @Operation(summary = "Salvar produto", description = "Cadastrar produto no banco de dados")
@@ -27,9 +35,8 @@ public class ProdutoController {
             @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
     })
     @PostMapping
-    public Produto salvar(@RequestBody Produto produto) {
-        produtoRepository.save(produto);
-        return produto;
+    public Produto salvar(@RequestBody ProdutoDTO produtoDTO) {
+        return produtoService.registrarProduto(produtoDTO.nome(), produtoDTO.descricao(), produtoDTO.preco(), produtoDTO.idFornecedor());
     }
 
     @Operation(summary = "Deletar produto", description = "Deletar produto do banco de dados.")
@@ -38,7 +45,7 @@ public class ProdutoController {
             @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
     })
     @DeleteMapping("{id}")
-    public void deletar(@PathVariable("id") int id) {
+    public void deletar(@PathVariable("id") Long id) {
         Produto produto = produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
         if (produto.getQuantidade() != 0) {
@@ -54,8 +61,16 @@ public class ProdutoController {
             @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
     })
     @PutMapping("{id}")
-    public void atualizar(@PathVariable("id") int id, @RequestBody Produto produto) {
+    public void atualizar(@PathVariable("id") Long id, @RequestBody ProdutoDTO produtoDTO) {
+        Produto produto = produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
         produto.setId(id);
+        produto.setNome(produtoDTO.nome());
+        produto.setPreco(produtoDTO.preco());
+        produto.setDescricao(produtoDTO.descricao());
+        Fornecedor fornecedor = fornecedorRepository.findById(produtoDTO.idFornecedor()).orElseThrow(() -> new RuntimeException("Fornecedor não encontrado!"));
+        produto.setFornecedor(fornecedor);
+
         produtoRepository.save(produto);
     }
 
@@ -78,7 +93,7 @@ public class ProdutoController {
             @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
     })
     @GetMapping("/{id}")
-    public Produto buscarPorId(@PathVariable("id") int id) {
+    public Produto buscarPorId(@PathVariable("id") Long id) {
         return produtoRepository.findById(id).orElse(null);
     }
 }

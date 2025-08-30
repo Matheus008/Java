@@ -30,7 +30,7 @@ public class VendaService {
     }
 
     @Transactional
-    public Venda registrarVenda(int produtoId, int quantidade, int clienteId, Usuario usuario) {
+    public Venda registrarVenda(Long produtoId, int quantidade, Long clienteId, Usuario usuario) {
         Produto produto = produtoRepository.findById(produtoId).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
         Cliente cliente =  clienteRepository.findById(clienteId).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 

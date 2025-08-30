@@ -47,7 +47,7 @@ public class FornecedorController {
             @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
     })
     @DeleteMapping("{id}")
-    public void deletar(@PathVariable("id") int id) {
+    public void deletar(@PathVariable("id") Long id) {
         Fornecedor fornecedor = fornecedorRepository.findById(id).orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
 
         fornecedorRepository.delete(fornecedor);
@@ -59,7 +59,7 @@ public class FornecedorController {
             @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
     })
     @PutMapping("{id}")
-    public Fornecedor atualizar(@PathVariable("id") int id, @RequestBody FornecedorDTO fornecedorDTO) {
+    public Fornecedor atualizar(@PathVariable("id") Long id, @RequestBody FornecedorDTO fornecedorDTO) {
         Fornecedor fornecedor = fornecedorRepository.findById(id).orElseThrow(() -> new RuntimeException("Fornecedor não encontrado!"));
 
         FornecedorDTO dtoFormatado = FornecedorDTO.of(fornecedorDTO.nomeFornecedor(), fornecedorDTO.cpfOuCnpj(), fornecedorDTO.tipoFornecedor());

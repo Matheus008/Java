@@ -28,7 +28,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
     })
     @DeleteMapping("{id}")
-    public void deletarUsuario(@PathVariable("id") int id) {
+    public void deletarUsuario(@PathVariable("id") Long id) {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
 
         usuarioRepository.deleteById(id);
@@ -40,7 +40,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "403", description = "Não tem permissão para executar essa ação")
     })
     @PutMapping("{id}")
-    public void atualizarUsuario(@PathVariable int id, @RequestBody Usuario usuario) {
+    public void atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
         usuario.setId(id);
         usuarioRepository.save(usuario);
     }

@@ -51,10 +51,8 @@ public class MovimentacaoController {
             @ApiResponse(responseCode = "403", description = "Não tem permissão para realizar essa ação")
     })
     @GetMapping("produto/{produtoId}")
-    public List<Movimentacao> listaPorProduto(@PathVariable int produtoId) {
-        return movimentacaoRepository.findAll()
-                .stream()
-                .filter(m -> m.getProduto().equals(produtoId))
-                .toList();
+    public List<Movimentacao> listaPorProduto(@PathVariable Long produtoId) {
+        List<Movimentacao> movimentacoes = movimentacaoRepository.findByProdutoId(produtoId);
+        return movimentacoes;
     }
 }

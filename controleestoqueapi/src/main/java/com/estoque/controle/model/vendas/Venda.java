@@ -15,7 +15,7 @@ public class Venda {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @JoinColumn(name = "usuario_id")
     @ManyToOne
@@ -41,13 +41,18 @@ public class Venda {
     private Cliente cliente;
 
     @Column(name = "data_venda")
-    private LocalDateTime dataVenda = LocalDateTime.now();
+    private LocalDateTime dataVenda;
 
-    public int getId() {
+    @PrePersist
+    public void prePesrsist() {
+        this.dataVenda = LocalDateTime.now();
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

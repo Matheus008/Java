@@ -12,7 +12,7 @@ public class Movimentacao {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "quantidade")
     private int quantidade;
@@ -39,11 +39,11 @@ public class Movimentacao {
         this.dataHora = LocalDateTime.now();
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

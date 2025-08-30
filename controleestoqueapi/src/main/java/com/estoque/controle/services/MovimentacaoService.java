@@ -24,7 +24,7 @@ public class MovimentacaoService {
     }
 
     @Transactional
-    public Movimentacao registrarMovimentacao(int produtoId, int quantidade, TipoMovimentacao tipoMovimentacao, String descricao, Usuario usuario) {
+    public Movimentacao registrarMovimentacao(Long produtoId, int quantidade, TipoMovimentacao tipoMovimentacao, String descricao, Usuario usuario) {
         Produto produto = produtoRepository.findById(produtoId).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
         if (tipoMovimentacao == TipoMovimentacao.SAIDA) {

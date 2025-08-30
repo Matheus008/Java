@@ -1,4 +1,4 @@
 package com.estoque.controle.model.vendas;
 
-public record VendasDTO(int quantidade, int produtoId, int clienteId) {
+public record VendasDTO(int quantidade, Long produtoId, Long clienteId) {
 }

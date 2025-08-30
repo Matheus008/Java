@@ -6,10 +6,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     UserDetails findByEmail(String email);
 
     List<Usuario> findByNomeUsuario(String nomeUsuario);
+
 }

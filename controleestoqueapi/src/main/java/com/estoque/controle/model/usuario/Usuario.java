@@ -23,7 +23,7 @@ public class Usuario implements UserDetails {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "email", unique = true)
     private String email;
@@ -91,8 +91,45 @@ public class Usuario implements UserDetails {
         return true;
     }
 
-    public void setId(int id) {
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+
+    public String getSenhaUsuario() {
+        return senhaUsuario;
+    }
+
+
+    public NivelDeUsuario getNivelDeUsuario() {
+        return nivelDeUsuario;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+
+    public void setSenhaUsuario(String senhaUsuario) {
+        this.senhaUsuario = senhaUsuario;
+    }
+
+    public void setNivelDeUsuario(NivelDeUsuario nivelDeUsuario) {
+        this.nivelDeUsuario = nivelDeUsuario;
+    }
 }
