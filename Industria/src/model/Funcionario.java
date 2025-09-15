@@ -30,3 +30,4 @@ public class Funcionario extends Pessoa{
         this.funcao = funcao;
     }
 }
+

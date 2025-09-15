@@ -31,7 +31,7 @@ public class Main {
             DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String dataFormatada = formatadorData.format(dataAntiga);
 
-            //System.out.println("Data formatada: " + dataFormatada);
+            System.out.println("Data formatada: " + dataFormatada);
 
             DecimalFormatSymbols simbolos = new DecimalFormatSymbols(new Locale("pt", "BR"));
             simbolos.setDecimalSeparator(',');
@@ -40,11 +40,11 @@ public class Main {
             DecimalFormat formatadorValor = new DecimalFormat("#,##0.00", simbolos);
             String valorFormatado = formatadorValor.format(funcionario.getSalario());
 
-            //System.out.println("Valor Formatado:" + valorFormatado);
+            System.out.println("Valor Formatado:" + valorFormatado);
 
             funcionario.setSalario(new BigDecimal(String.valueOf(funcionario.getSalario().multiply(BigDecimal.valueOf(1.10)))));
 
-            //System.out.println("Valor com mais 10%: " + funcionario.getSalario());
+            System.out.println("Valor com mais 10%: " + funcionario.getSalario());
         }
 
         Map<String, List<Funcionario>> funcionariosPorFuncao = listaDeFuncionarios.stream()
